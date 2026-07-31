@@ -133,7 +133,7 @@ body {
 ══════════════════════════════════════════════════════════ */
 .hero{
   position: relative;
-  min-height: 800vh;
+  min-height: 100vh;
   padding-top: 66px;
   display: flex;
   align-items: center;
