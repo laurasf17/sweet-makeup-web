@@ -1,6 +1,14 @@
 import { useState } from 'react'
 import './App.css'
-import { supabase } from './supabase' 
+//import { supabase } from './supabase' 
+import Navbar from './components/Navbar'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import Home from './pages/Home'
+import Tienda from './pages/Tienda'
+import AsesoriaIA from './pages/AsesoriaIA'
+import Looks from './pages/Looks'
+import SobreNosotros from './pages/SobreNosotros'
 
 // ── Iconos SVG ──────────────────────────────────────────
 const IconUser = () => (
@@ -125,23 +133,10 @@ function App() {
 
   return (
     <div className="app-root">
-
-      {/* ── NAVBAR ── */}
-      <nav className="navbar">
-        <ul className="nav-links">
-          {navLinks.map(link => (
-            <li key={link} className={activeNav === link ? 'nav-active' : ''}>
-              <a href="#" onClick={e => { e.preventDefault(); setActiveNav(link) }}>
-                {link}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="nav-search">
-          <input type="text" placeholder="Buscar productos..." />
-          <button className="search-icon-btn"><IconSearch /></button>
-        </div>
-      </nav>
+     <Navbar
+  activeNav={activeNav}
+  setActiveNav={setActiveNav}
+/> 
 
       {/* ── HERO / PÁGINA ── */}
       <section className="hero">
