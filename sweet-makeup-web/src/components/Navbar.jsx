@@ -1,45 +1,31 @@
-const IconSearch = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="11" cy="11" r="7" />
-    <path d="m20 20-4-4" />
-  </svg>
-)
+import { Link, useLocation } from 'react-router-dom'
+import { IconSearch } from './icons'
 
-function Navbar({ activeNav, setActiveNav }) {
-  const navLinks = [
-    'Inicio',
-    'Tienda',
-    'Asesoría IA',
-    'Looks',
-    'Sobre nosotros'
-  ]
+// Cada link de navegación apunta a su ruta real.
+// "Inicio" lleva a "/", que es la página de
+// registro/login.
+const navLinks = [
+  { label: 'Inicio', path: '/' },
+  { label: 'Tienda', path: '/tienda' },
+  { label: 'Asesoría IA', path: '/asesoria-ia' },
+  { label: 'Looks', path: '/looks' },
+  { label: 'Sobre nosotros', path: '/sobre-nosotros' }
+]
+
+function Navbar() {
+  const { pathname } = useLocation()
 
   return (
     <nav className="navbar">
       <ul className="nav-links">
-        {navLinks.map(link => (
+        {navLinks.map(({ label, path }) => (
           <li
-            key={link}
-            className={activeNav === link ? 'nav-active' : ''}
+            key={path}
+            className={pathname === path ? 'nav-active' : ''}
           >
-            <a
-              href="#"
-              onClick={e => {
-                e.preventDefault()
-                setActiveNav(link)
-              }}
-            >
-              {link}
-            </a>
+            <Link to={path}>
+              {label}
+            </Link>
           </li>
         ))}
       </ul>
