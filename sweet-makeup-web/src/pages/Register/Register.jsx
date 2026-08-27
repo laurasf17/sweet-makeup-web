@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
+  
   IconUser,
   IconMail,
   IconLock,
   IconEyeOpen,
-  IconEyeOff
+  IconEyeOff,
+  IconGoogle,   // ícono nuevo de Google
+  IconFacebook  // ícono nuevo de Facebook
+
 } from '../../components/icons'
 
 // ─────────────────────────────────────────────
@@ -298,7 +302,35 @@ function Register() {
 
           </>
         )}
+                {/* BOTONES DE GOOGLE Y FACEBOOK (solo visuales por ahora) */}
 
+        <div className="social-divider">
+          {/* línea izquierda */}
+          <span className="social-line" />
+
+          <span className="social-divider-text">
+            o continúa con
+          </span>
+
+          {/* línea derecha */}
+          <span className="social-line" />
+        </div>
+
+        <div className="social-buttons">
+
+          {/* botón de Google, sin funcionalidad todavía */}
+          <button type="button" className="social-btn">
+            <IconGoogle />
+            Google
+          </button>
+
+          {/* botón de Facebook, sin funcionalidad todavía */}
+          <button type="button" className="social-btn">
+            <IconFacebook />
+            Facebook
+          </button>
+
+        </div>
         {/* BOTÓN */}
 
         <button
