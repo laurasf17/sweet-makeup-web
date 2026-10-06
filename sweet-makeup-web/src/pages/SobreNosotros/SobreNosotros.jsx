@@ -1,238 +1,148 @@
-import {Link} from "react-router-dom";
-import "./SobreNosotros.css";
-import fotoModelos from '../../assets/sobre-nosotros.jpg'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import './SobreNosotros.css'
+import maquillaje01 from '../../assets/maquillaje01.jpeg'
+import maquillaje02 from '../../assets/maquillaje02.jpeg'
+import maquillaje03 from '../../assets/maquillaje03.jpeg'
+import maquillaje04 from '../../assets/maquillaje04.jpeg'
+import maquillaje05 from '../../assets/maquillaje05.jpeg'
 
+const fotos = [maquillaje01, maquillaje02, maquillaje03, maquillaje04, maquillaje05]
 
-function IconChip() {
-  return (
-    <svg viewBox="0 0 24 24" className="valor-icono">
-      <rect x="6" y="6" width="12" height="12" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="9" y="9" width="6" height="6" fill="currentColor" opacity="0.4" />
-      <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"
-        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  )
+const testimonios = [
+  { texto: 'La asesoría entendió exactamente lo que quería expresar con mi look.', nombre: 'Valentina R.', detalle: 'Comunidad Sweet Makeup' },
+  { texto: 'Encontré productos que sí se sienten hechos para mi piel y mi estilo.', nombre: 'Camila M.', detalle: 'Beauty lover' },
+  { texto: 'La tecnología se siente cercana, intuitiva y muy inspiradora.', nombre: 'Sofía G.', detalle: 'Exploradora de looks' }
+]
+
+function Icon({ tipo }) {
+  const paths = {
+    personalizacion: <><path d="M12 3v18M3 12h18" /><circle cx="12" cy="12" r="7" /></>,
+    tecnologia: <><rect x="5" y="5" width="14" height="14" rx="3" /><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M19 9h3M2 15h3M19 15h3M9 12h6M12 9v6" /></>,
+    autenticidad: <><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></>,
+    innovacion: <><path d="M9 18h6M10 21h4M8 14.5a6 6 0 1 1 8 0c-.8.7-1 1.3-1 2.5H9c0-1.2-.2-1.8-1-2.5Z" /><path d="m12 2 1 2M4.5 5.5 6 7M19.5 5.5 18 7" /></>,
+    cercania: <><circle cx="9" cy="8" r="3" /><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M17 9a2.5 2.5 0 0 1 0 5M17 15c2.3.3 4 2.2 4 5" /></>,
+    confianza: <><path d="M12 2 20 5v6c0 5-3 8.5-8 11-5-2.5-8-6-8-11V5l8-3Z" /><path d="m8.5 12 2.3 2.3 4.8-5" /></>,
+    calidad: <><path d="m12 2 2.5 5.5 6 .7-4.5 4 1.3 5.9-5.3-3.1-5.3 3.1 1.3-5.9-4.5-4 6-.7L12 2Z" /></>
+  }
+
+  return <svg className="sn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{paths[tipo]}</svg>
 }
 
-function IconUsers() {
-  return (
-    <svg viewBox="0 0 24 24" className="valor-icono">
-      <circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"
-        fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="17" cy="9" r="2.3" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M15.5 14c2.6 0.3 4.5 2.4 4.5 5"
-        fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-function IconShield() {
-  return (
-    <svg viewBox="0 0 24 24" className="valor-icono">
-      <path d="M12 2 L20 5 V11 C20 16 17 19.5 12 22 C7 19.5 4 16 4 11 V5 Z"
-        fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M8.5 12l2.4 2.4L15.5 9.5"
-        fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function IconCrown() {
-  return (
-    <svg viewBox="0 0 24 24" className="valor-icono">
-      <path d="M3 8l4 3 5-6 5 6 4-3-2 10H5L3 8Z"
-        fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function IconTruck() {
-  return (
-    <svg viewBox="0 0 24 24" className="beneficio-icono">
-      <rect x="1" y="7" width="13" height="9" rx="1" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M14 10h4l3 3v3h-7z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <circle cx="6" cy="18" r="1.6" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="17" cy="18" r="1.6" fill="none" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  )
-}
-
-function IconBadgeCheck() {
-  return (
-    <svg viewBox="0 0 24 24" className="beneficio-icono">
-      <path d="M12 2 L20 5 V11 C20 16 17 19.5 12 22 C7 19.5 4 16 4 11 V5 Z"
-        fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M8.5 12l2.4 2.4L15.5 9.5"
-        fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function IconUserCheck() {
-  return (
-    <svg viewBox="0 0 24 24" className="beneficio-icono">
-      <circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"
-        fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M16 12l2 2 3-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function IconBag() {
-  return (
-    <svg viewBox="0 0 24 24" className="beneficio-icono">
-      <path d="M6 8h12l-1 12H7L6 8Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  )
+function Dots({ total, active }) {
+  return <div className="sn-dots" aria-hidden="true">{Array.from({ length: total }, (_, index) => <span className={index === active ? 'sn-dot sn-dot-active' : 'sn-dot'} key={index} />)}</div>
 }
 
 function SobreNosotros() {
+  const [fotoActiva, setFotoActiva] = useState(0)
+  const [testimonioActivo, setTestimonioActivo] = useState(0)
+
+  useEffect(() => {
+    const intervalo = window.setInterval(() => {
+      setFotoActiva((actual) => (actual + 1) % fotos.length)
+    }, 4500)
+    return () => window.clearInterval(intervalo)
+  }, [])
+
+  useEffect(() => {
+    const intervalo = window.setInterval(() => {
+      setTestimonioActivo((actual) => (actual + 1) % testimonios.length)
+    }, 5500)
+    return () => window.clearInterval(intervalo)
+  }, [])
+
   return (
-    <section className="sn-hero">
+    <main className="sn-page">
+      <div className="sn-decor sn-decor-one" aria-hidden="true">✦</div>
+      <div className="sn-decor sn-decor-two" aria-hidden="true">✦</div>
+      <div className="sn-curve sn-curve-one" aria-hidden="true" />
+      <div className="sn-curve sn-curve-two" aria-hidden="true" />
 
-      {/* ── Encabezado + columnas ── */}
-      <h1 className="sn-titulo">
-  Sobre Nosotros <span className="sn-star">✦</span>
-</h1>
-
-<p className="sn-subtitulo">
-  Belleza, tecnología e innovación para empoderar tu esencia natural.
-</p>
-
-<div className="sn-top">
-
-  <div className="sn-texto">
-
-    <h2 className="sn-seccion-titulo">Nuestra historia</h2>
-
-    <p className="sn-parrafo">
-      Sweet Makeup nació de la visión de combinar belleza y tecnología
-      para crear experiencias personalizadas que realzan la
-      autenticidad de cada persona.
-    </p>
-
-    <p className="sn-parrafo">
-      Creemos que la inteligencia artificial puede potenciar tu
-      belleza natural con recomendaciones precisas, productos
-      premium y asesoría hecha especialmente para ti.
-    </p>
-
-    <p className="sn-parrafo">
-      Hoy seguimos creciendo con un objetivo claro: que cada persona, sin importar 
-      su experiencia con el maquillaje, encuentre en Sweet Makeup un espacio
-      donde sentirse acompañada, entendida y segura de su propia belleza.
-    </p>
-
-  </div>
-
-  <div className="sn-imagen-wrap">
-    <img
-      src={fotoModelos}
-      alt="Modelos Sweet Makeup"
-      className="sn-imagen"
-    />
-  </div>
-  
-
-</div>
-
-  {/* ── Cómo funciona ── */}
-      <div className="sn-como-funciona">
-
-        <h2 className="sn-seccion-titulo sn-como-funciona-titulo">¿Cómo funciona?</h2>
-
-        <div className="sn-pasos">
-
-          <div className="paso-item">
-            <span className="paso-numero">1</span>
-            <h3>Sube tu foto</h3>
-            <p>De forma segura y privada.</p>
-          </div>
-
-          <div className="paso-item">
-            <span className="paso-numero">2</span>
-            <h3>Nuestra IA la analiza</h3>
-            <p>Identifica tono de piel, forma de rostro y rasgos clave.</p>
-          </div>
-
-          <div className="paso-item">
-            <span className="paso-numero">3</span>
-            <h3>Recibe tus recomendaciones</h3>
-            <p>Looks y productos pensados para ti.</p>
-          </div>
-
+      <section className="sn-section sn-hero-section">
+        <div className="sn-hero-copy sn-reveal">
+          <span className="sn-label">IA <b>✦</b> BELLEZA <b>✦</b> PERSONALIZACIÓN</span>
+          <h1>Sobre<br /><em>Nosotros</em></h1>
+          <p className="sn-hero-lead">La tecnología entiende tu belleza. Tú decides cómo expresarla.</p>
+          <span className="sn-hero-rule" />
         </div>
+        <div className="sn-hero-photo sn-photo-frame sn-reveal-delay">
+          <img src={maquillaje01} alt="Belleza editorial Sweet Makeup" />
+          <span className="sn-photo-glow" aria-hidden="true" />
+          <span className="sn-photo-caption">SWEET MAKEUP / BEAUTY LAB</span>
+        </div>
+      </section>
 
-      </div>
-
-      {/* ── Nuestros valores ── */}
-      <div className="sn-valores">
-
-        <h2 className="sn-seccion-titulo sn-valores-titulo">Nuestros valores</h2>
-
-        <div className="sn-valores-grid">
-
-          <div className="valor-item">
-            <IconChip />
-            <span>Innovación</span>
+      <section className="sn-section sn-history-section">
+        <div className="sn-history-photo sn-photo-frame">
+          <img src={maquillaje02} alt="Inspiración de maquillaje Sweet Makeup" />
+          <span className="sn-photo-index">02 <i>/ 05</i></span>
+        </div>
+        <div className="sn-history-copy">
+          <span className="sn-label">01 / El comienzo</span>
+          <h2>Nuestra<br /><em>historia</em></h2>
+          <p>Sweet Makeup nació de la visión de combinar belleza y tecnología para crear experiencias personalizadas que realzan la autenticidad de cada persona.</p>
+          <p>Creemos que la inteligencia artificial puede potenciar tu belleza natural con recomendaciones precisas, productos premium y asesoría hecha especialmente para ti.</p>
+          <div className="sn-timeline">
+            <div><strong>2024</strong><span>Nace Sweet Makeup</span></div>
+            <div><strong>2025</strong><span>Incorporamos asesoría con IA</span></div>
+            <div><strong>2026</strong><span>Personalización de looks y productos</span></div>
           </div>
-
-          <div className="valor-item">
-            <IconUsers />
-            <span>Cercanía</span>
-          </div>
-
-          <div className="valor-item">
-            <IconShield />
-            <span>Confianza</span>
-          </div>
-
-          <div className="valor-item">
-            <IconCrown />
-            <span>Calidad</span>
-          </div>
-
         </div>
+      </section>
 
-      </div>
-
-      {/* ── Franja de beneficios ── */}
-      <div className="sn-beneficios">
-
-        <div className="beneficio-item">
-          <IconTruck />
-          <span>Envíos rápidos a toda Colombia</span>
+      <section className="sn-section sn-essence-section">
+        <div className="sn-centered-heading"><span className="sn-label">02 / La intención</span><h2>Nuestra <em>esencia</em></h2><p>No queremos cambiar tu belleza. Queremos ayudarte a descubrirla.</p></div>
+        <div className="sn-card-grid sn-essence-grid">
+          <article className="sn-feature-card"><Icon tipo="personalizacion" /><span>01</span><h3>Personalización</h3><p>Recomendaciones que reconocen lo que te hace única.</p></article>
+          <article className="sn-feature-card sn-card-highlight"><Icon tipo="tecnologia" /><span>02</span><h3>Tecnología</h3><p>IA que convierte tus preferencias en posibilidades.</p></article>
+          <article className="sn-feature-card"><Icon tipo="autenticidad" /><span>03</span><h3>Autenticidad</h3><p>Tu estilo, tus reglas, tu manera de brillar.</p></article>
         </div>
+      </section>
 
-        <div className="beneficio-item">
-          <IconBadgeCheck />
-          <span>Productos originales 100% garantizados</span>
+      <section className="sn-section sn-movement-section">
+        <div className="sn-section-heading-row"><div><span className="sn-label">03 / La inspiración</span><h2>Belleza en <em>movimiento</em></h2></div><span className="sn-heading-note">Una mirada distinta<br />a cada versión de ti.</span></div>
+        <div className="sn-gallery-frame">
+          <img key={fotos[fotoActiva]} src={fotos[fotoActiva]} alt={`Look editorial Sweet Makeup ${fotoActiva + 1}`} className="sn-gallery-image" />
+          <div className="sn-gallery-overlay" aria-hidden="true" />
+          <span className="sn-gallery-counter">0{fotoActiva + 1} <i>/ 05</i></span>
+          <Dots total={fotos.length} active={fotoActiva} />
         </div>
+      </section>
 
-        <div className="beneficio-item">
-          <IconUserCheck />
-          <span>Asesoría IA personalizada para ti y tu piel</span>
+      <section className="sn-section sn-process-section">
+        <div className="sn-centered-heading"><span className="sn-label">04 / El proceso</span><h2>¿Cómo <em>funciona?</em></h2><p>Tu belleza, acompañada por una tecnología que sí te escucha.</p></div>
+        <div className="sn-process-grid">
+          <article><span>01</span><div className="sn-process-icon">◌</div><h3>Sube tu foto</h3><p>Comparte tu inspiración de forma segura y privada.</p></article>
+          <article><span>02</span><div className="sn-process-icon">✦</div><h3>La IA descubre tu estilo</h3><p>Analizamos tus rasgos, tonos y preferencias.</p></article>
+          <article><span>03</span><div className="sn-process-icon">♡</div><h3>Tu belleza, personalizada</h3><p>Recibe looks y productos pensados para ti.</p></article>
         </div>
+      </section>
 
-        <div className="beneficio-item">
-          <IconBag />
-          <span>Pagos seguros, protegemos tu información</span>
+      <section className="sn-section sn-values-section">
+        <div className="sn-centered-heading"><span className="sn-label">05 / Lo que nos mueve</span><h2>Nuestros <em>valores</em></h2></div>
+        <div className="sn-card-grid sn-values-grid">
+          <article className="sn-value-card"><Icon tipo="innovacion" /><h3>Innovación</h3><p>Curiosidad para crear nuevas formas de explorar tu belleza.</p></article>
+          <article className="sn-value-card"><Icon tipo="cercania" /><h3>Cercanía</h3><p>Una experiencia que se siente humana en cada paso.</p></article>
+          <article className="sn-value-card"><Icon tipo="confianza" /><h3>Confianza</h3><p>Tu información y tus decisiones siempre están primero.</p></article>
+          <article className="sn-value-card"><Icon tipo="calidad" /><h3>Calidad</h3><p>Selección cuidadosa para resultados que sí disfrutas.</p></article>
         </div>
+      </section>
 
-      </div>
- {/* ── CTA de cierre ── */}
-      <div className="sn-cta">
-        <p className="sn-cta-texto">¿Lista para descubrir tu look ideal?</p>
-        <Link to="/asesoria-ia" className="sn-cta-boton">
-          Prueba la asesoría IA ahora
-        </Link>
-      </div>
+      <section className="sn-section sn-impact-section">
+        <div className="sn-impact-copy"><span className="sn-label">06 / Más que belleza</span><h2>Nuestro<br /><em>impacto</em></h2><p>Una comunidad que crece cuando cada persona se siente libre de expresarse.</p></div>
+        <div className="sn-stats-grid"><div><strong>+1.000</strong><span>personas inspiradas</span></div><div><strong>+500</strong><span>looks descubiertos</span></div><div><strong>24/7</strong><span>acompañamiento</span></div><div><strong>IA</strong><span>hecha para ti</span></div></div>
+      </section>
 
+      <section className="sn-section sn-testimonials-section">
+        <div className="sn-centered-heading"><span className="sn-label">07 / Ellas lo cuentan</span><h2>Voces de nuestra <em>comunidad</em></h2></div>
+        <div className="sn-testimonial-card"><span className="sn-quote-mark">“</span><p>{testimonios[testimonioActivo].texto}</p><strong>{testimonios[testimonioActivo].nombre}</strong><span>{testimonios[testimonioActivo].detalle}</span><Dots total={testimonios.length} active={testimonioActivo} /></div>
+      </section>
 
-    </section>
+      <section className="sn-section sn-cta-section">
+        <div className="sn-cta-photo sn-photo-frame"><img src={maquillaje05} alt="Belleza personalizada Sweet Makeup" /></div>
+        <div className="sn-cta-copy"><span className="sn-label">08 / Tu siguiente look</span><h2>Tu belleza ya existe.<br /><em>Nosotros te ayudamos a descubrirla.</em></h2><Link to="/asesoria-ia" className="sn-cta-button">Descubre tu estilo <span>✦</span></Link></div>
+      </section>
+    </main>
   )
 }
 
